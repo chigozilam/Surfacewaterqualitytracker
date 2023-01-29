@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Map | Surface Water Quality Tracker</title>
+ 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.2.1/dist/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;402&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+    integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="
+    crossorigin=""/>
+
+    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
+    integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="
+    crossorigin=""></script>
+
+    <script src="//unpkg.com/@sjaakp/leaflet-search/dist/leaflet-search.js"></script>
+
+
+
+
+
+</head>
+<body onload="bodyFunction()">
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="/index.html"><img class="logo" src="/assets/logo.png"></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+          
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav mr-auto">
+                <!-- <li class="nav-item active">
+                  <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Link</a>
+                </li> -->
+          
+              </ul>
+              
+              <div class="form-inline my-2 my-lg-0">
+                <!-- <a class="nav-link" href="/inputreadings.html">Input Readings</a> -->
+               
+                <a class="nav-link" href="/unauthenticatedmap.html">Check Readings</a>
+                <a class="nav-link" href="/umaps.html">Map</a>
+                <a class="nav-link" href="/signin.html">Login</a>
+                <a class="nav-link" href="/register.html">Register</a>
+
+                <!-- <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> -->
+              </div>
+            </div>
+          </nav>
+          <div class="mapbox" id="map" style="text-align: center;"></div>
+<!-- <div class="container">
+  <h5 style="margin-top:30px">Filter By</h5>
+  <div class="row">
+    <div class="col-md-3">
+      <div class="form-group">
+        <label for="ph">PH</label>
+        <select class="form-control" id="ph" onchange="SearchPh()" >
+          <option value="ALL"> All </option>
+          <option value="5"> 0 - 5.0</option>
+          <option value="6.4">5.1 - 6.4</option>
+          <option value="8.4">6.5 - 8.4</option>
+          <option value="10.0">8.5 - 10.0</option>
+          <option value="14.0">10.1 - 14.0</option>
+        </select>
+      </div>
+    </div>
+  
+    <div class="col-md-3">
+      <div class="form-group">
+        <label for="dissolved02">Dissolved 0xygen</label>
+        <select class="form-control" id="dissolved02" onchange="Search02()">
+          <option value="ALL"> All </option>
+          <option value="5.9"> 0 - 5.9 ppm</option>
+            <option value="8.4">6.0 - 8.4 ppm</option>
+            <option value="11.0">8.5 - 11.0 ppm</option>
+          </select>
+      </div>
+    </div>
+  
+    <div class="col-md-3">
+      <div class="form-group">
+        <label for="nitrate">Nitrate</label>
+        <select class="form-control" id="nitrate" onchange="SearchNitrate()">
+            <option value="ALL"> All </option>
+            <option value="19"> 0 - 19 ppm</option>
+            <option value="50">20 - 50 ppm</option>
+            <option value="100">50 - 100 ppm</option>
+          </select>
+      </div>
+    </div>
+  
+    <div class="col-md-3">
+      <div class="form-group">
+        <label for="freechlorine">Free Chlorine</label>
+        <select class="form-control" id="freechlorine" onchange="SearchChlorine()">
+          <option value="ALL"> All </option>
+          <option value="2"> 0.1 - 2.0 ppm</option>
+            <option value="5">2.1 - 5.0 ppm</option>
+            <option value="10">5.1 - 10.0 ppm</option>
+          </select>
+      </div>
+    </div>
+
+ 
+    
+  </div>
+  <div class="row">
+
+
+     <div class="col-md-3">
+      <button 
+      class="btn" 
+      style="margin-bottom:20px; background-color:#007BFF; color:white" 
+      type="button" 
+      onclick="SearchData()"> Filter
+    </button>
+
+    </div> -->
+    
+  </div>
+
+</div> 
+          <!-- <table class="table css-serial" id="records_table">
+            <thead class="thead-dark">
+              <tr class="ippisschedulehead">
+                <th class="ippiscol0" scope="col">S/N</th>     
+                <th class="ippiscol0" scope="col">PH</th>
+                <th class="ippiscol0" scope="col">DISSOLVED 02</th>
+                <th class="ippiscol0" scope="col">NITRATE</th>
+                <th class="ippiscol0" scope="col">FREE CHLORINE</th>
+                <th class="ippiscol0" scope="col">LOCATION</th>
+
+             
+
+
+
+              </tr>
+            </thead>
+            <tbody >
+            </tbody>
+          </table> -->
+    </div>
+
+    
+
+
+
+<script>
+         document.getElementById("map").innerHTML = "Loading..."
+        let locations2 =[]
+        let url =  `https://swqt-5cab2-default-rtdb.firebaseio.com//readings.json`;
+                fetch(url)
+                .then((res) => {
+                    if (res.ok) {
+                        return  res.json().then((data) => {
+                            console.log(data)
+                            for (const key in data){
+                                locations2.push({
+                                    readings: "Dissolved 0xygen: " + data[key].dissolved02 + ", Free Chlorine: " + data[key].freechlorine + ", Nitrate: " + data[key].nitrate + ", PH: " + data[key].ph,
+                                   latitude: data[key].latitude,
+                                   longitude: data[key].longitude
+                                })
+                            }
+
+                            var map = L.map('map').setView([53.4689, -2.3174], 4);
+                                mapLink =
+                                '<a href="http://openstreetmap.org">OpenStreetMap</a>';
+                                L.tileLayer(
+                                'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                                    attribution: '&copy; ' + mapLink + ' Contributors',
+                                    maxZoom: 18,
+                                }).addTo(map);
+                                map.addControl(L.control.search());
+
+
+
+                                for (var i = 0; i < locations2.length; i++) {
+                                    console.log(locations2[i].latitude)
+                                marker = new L.marker([locations2[i].latitude, locations2[i].longitude])
+                                    .bindPopup(locations2[i].readings)
+                                    .addTo(map);
+                                }
+
+
+                        });
+                        
+                    } else {
+                    return res.json().then((data) => {
+                        console.log(data)
+                      
+                    });
+                    }
+                })
+    
+
+
+    function showError(error) {
+  $(".spinner-border").css("display","none")
+  switch(error.code) {
+    case error.PERMISSION_DENIED:
+      alert("User denied the request for Geolocation.")
+      document.getElementById("map").innerHTML = "User denied the request for Geolocation."
+      break;
+    case error.POSITION_UNAVAILABLE:
+      alert("Location information is unavailable.")
+      document.getElementById("map").innerHTML = "Location information is unavailable."
+      break;
+    case error.TIMEOUT:
+      alert("The request to get user location timed out.")
+      document.getElementById("map").innerHTML = "The request to get user location timed out."
+      break;
+    case error.UNKNOWN_ERROR:
+      alert( "An unknown error occurred.")
+      document.getElementById("map").innerHTML = "An unknown error occurred."
+      break;
+  }
+}
+
+</script>
+
+<script>
+  function bodyFunction() {
+    let locations2 =[]
+    let url =  `https://swqt-5cab2-default-rtdb.firebaseio.com//readings.json`;
+                fetch(url)
+                .then((res) => {
+                    if (res.ok) {
+                        return  res.json().then((data) => {
+                            for (const key in data){
+                                locations2.push({
+                                   latitude: data[key].latitude,
+                                   longitude: data[key].longitude,
+                                   chlorine: data[key].freechlorine, 
+                                   oxygen: data[key].dissolved02 ,
+                                   nitrate: data[key].nitrate,
+                                   ph:data[key].ph,
+                                   location:data[key].location
+                                })
+                            }
+
+                                for (var i = 0; i < locations2.length; i++) {
+                                  // let locationplaceholder 
+                                  // if(locations2[i].location !== undefined){
+                                  //     locationplaceholder = locations2[i].location
+                                  // }
+                                  // else{
+                                  //   locationplaceholder = ""
+                                  // }
+                                  
+                                        $("<tr>").html(
+                                            "<td>" + "" + "</td><td>"
+                                            + locations2[i].ph + "</td><td>"
+                                            + locations2[i].oxygen + "</td><td>"
+                                            + locations2[i].nitrate + "</td><td>"
+                                            + locations2[i].chlorine + "</td><td>"
+                                            + locations2[i].location + "</td>"      
+                                          ).appendTo('#records_table');
+                                }
+                              
+                        })
+                        
+                    } else {
+                    return res.json().then((data) => {
+                        console.log(data)
+                      
+                    });
+                    }
+                })
+    
+
+
+
+  };
+
+
+</script>
+
+<!-- ALL FILTERS -->
+<script>
+  const table = document.getElementById("records_table");
+  const tr = table.getElementsByTagName("tr");
+
+  function SearchPh() {
+    var ph = document.getElementById("ph").value.toUpperCase();
+    for (i = 1; i < tr.length; i++) {
+    var rowPh = tr[i].getElementsByTagName("td")[1].textContent.toUpperCase();
+    var isDiplay = true;
+    if (ph != 'ALL' && rowPh != ph) {
+      isDiplay = false;
+    }
+    if (isDiplay) {
+      tr[i].style.display = "";
+    } else {
+      tr[i].style.display = "none";
+    }
+  }
+  }
+
+  function Search02() {
+  var oxygen = document.getElementById("dissolved02").value.toUpperCase();
+  var nitrate = document.getElementById("nitrate").value.toUpperCase();
+  var chlorine = document.getElementById("freechlorine").value.toUpperCase();
+
+
+    for (i = 1; i < tr.length; i++) {
+    var rowPh = tr[i].getElementsByTagName("td")[2].textContent.toUpperCase();
+    var isDiplay = true;
+    if (oxygen != 'ALL' && rowPh != oxygen) {
+      isDiplay = false;
+    }
+    if (isDiplay) {
+      tr[i].style.display = "";
+    } else {
+      tr[i].style.display = "none";
+    }
+  }
+  }
+
+  function SearchNitrate() {
+  var nitrate = document.getElementById("nitrate").value.toUpperCase();
+    for (i = 1; i < tr.length; i++) {
+    var rowPh = tr[i].getElementsByTagName("td")[3].textContent.toUpperCase();
+    var isDiplay = true;
+    if (nitrate != 'ALL' && rowPh != nitrate) {
+      isDiplay = false;
+    }
+    if (isDiplay) {
+      tr[i].style.display = "";
+    } else {
+      tr[i].style.display = "none";
+    }
+  }
+  }
+
+  function SearchChlorine() {
+  var chlorine = document.getElementById("freechlorine").value.toUpperCase();
+    for (i = 1; i < tr.length; i++) {
+    var rowPh = tr[i].getElementsByTagName("td")[4].textContent.toUpperCase();
+    var isDiplay = true;
+    if (chlorine != 'ALL' && rowPh != chlorine) {
+      isDiplay = false;
+    }
+    if (isDiplay) {
+      tr[i].style.display = "";
+    } else {
+      tr[i].style.display = "none";
+    }
+  }
+  }
+  
+  
+  </script>
+  <!-- ALL FILTERS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.6/dist/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.2.1/dist/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+
+    </html>

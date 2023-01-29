@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Input Readings | Surface Water Quality Tracker</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.2.1/dist/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;402&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="main.css">
+    <script src="https://kit.fontawesome.com/7dc12ecddc.js" crossorigin="anonymous"></script>
+
+</head>
+<body>
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="/inputreadings.html"><img class="logo" src="/assets/logo.png"></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+          
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav mr-auto">
+                <!-- <li class="nav-item active">
+                  <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Link</a>
+                </li> -->
+          
+              </ul>
+              
+              <div class="form-inline my-2 my-lg-0">
+                <a class="nav-link" href="/inputreadings.html">Input Readings</a>
+                <!-- <a class="nav-link" href="/analyzeresult.html">Analyze Result</a> -->
+                <a class="nav-link" href="/map.html">Check Readings</a>
+                <a class="nav-link" href="/maps.html">Map</a>
+                <a class="nav-link" href="/scanstrip.html">Scan Strip</a>
+                <a class="nav-link" href="/signin.html">Logout</a>
+
+                <!-- <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> -->
+              </div>
+            </div>
+          </nav>
+          <div class="row">
+            <div class="col-md-4">
+    
+            </div>
+    
+            <div class="col-md-4">
+                <p class="registertitle">INPUT READINGS</p>
+                <div class="inputreadingform">
+                    <div class="form-group">
+                      <label for="ph">PH</label>
+                      <select class="form-control" id="ph" >
+                        <option value="">- Select -</option>
+                        <option value="5"> 0 - 5.0</option>
+                        <option value="6.4">5.1 - 6.4</option>
+                        <option value="8.4">6.5 - 8.4</option>
+                        <option value="10.0">8.5 - 10.0</option>
+                        <option value="14.0">10.1 - 14.0</option>
+                      </select>
+                    </div>
+    
+                    <div class="form-group">
+                        <label for="dissolved02">Dissolved Oxygen</label>
+                        <select class="form-control" id="dissolved02">
+                            <option value="">- Select -</option>
+                            <option value="5.9"> 0 - 5.9 ppm</option>
+                            <option value="8.4">6.0 - 8.4 ppm</option>
+                            <option value="11.0">8.5 - 11.0 ppm</option>
+                          </select>
+                      </div>
+    
+                      <div class="form-group">
+                        <label for="nitrate">Nitrate</label>
+                        <select class="form-control" id="nitrate">
+                            <option value="">- Select -</option>
+                            <option value="19"> 0 - 19 ppm</option>
+                            <option value="50">20 - 50 ppm</option>
+                            <option value="100">50 - 100 ppm</option>
+                          </select>
+                      </div>
+    
+                      <div class="form-group">
+                        <label for="freechlorine">Free Chlorine</label>
+                        <select class="form-control" id="freechlorine">
+                            <option value="">- Select -</option>
+                            <option value="2"> 0.1 - 2.0 ppm</option>
+                            <option value="5">2.1 - 5.0 ppm</option>
+                            <option value="10">5.1 - 10.0 ppm</option>
+                          </select>
+                      </div>
+                      <p><i class="fas fa-info-circle"></i> When you click save, a prompt will appear for you to allow us get your coordinates, this is to document where this reading is taken from.</p>
+                  
+                    <p class="registersubmitp">
+                        <button type="submit" class="btn btn-primary registersubmit" onclick="inputreading()">
+                            <div class="spinner-border spinner-border-sm" role="status">
+                                <span class="sr-only">Loading...</span>
+                              </div>
+                            Save</button>
+                       <a href="/dashboard.html"> <button type="submit" class="btn btn-primary registersubmit">Cancel</button></a>
+
+                    </p>
+    
+                </div>
+            </div>
+    
+            <div class="col-md-4">
+                
+            </div>
+        </div>
+    </div>
+
+
+<script>
+    let ph
+    let dissolved02
+    let nitrate
+    let freechlorine
+    let user_id
+
+    //  GET READINGS FROM INPUT FIELDS
+    const inputreading =() =>{
+        ph = document.getElementById("ph").value
+        dissolved02 = document.getElementById("dissolved02").value
+        nitrate = document.getElementById("nitrate").value
+        freechlorine = document.getElementById("freechlorine").value
+        user_id = localStorage.getItem("userid")
+        $(".spinner-border").css("display","inherit")
+      
+
+        if (ph === "" || dissolved02 === "" || nitrate === "" || freechlorine==="" ){
+            $(".spinner-border").css("display","none")
+            alert("Fill in missing field(s)")
+            return
+        }
+
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition, showError);
+        } else { 
+            alert("Geolocation is not supported by this browser.")
+        }
+    }
+
+
+    // GET USERS LATITUDE AND LONGITUDE FROM BROWSER
+    function showPosition (position) {
+      
+        const longitude = position.coords.longitude
+        const latitude = position.coords.latitude
+
+        // GET PRECISE LOCATION USING OPENSTREETMAP API AND SAVE TO THE DATABASE
+        let locationurl = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}&namedetails=1`;
+        fetch(locationurl)
+        .then((res) => {
+        if (res.ok) {
+        return  res.json().then((data) => {
+          localStorage.setItem("location", data.display_name)
+                              
+                                    })}
+                          
+                                  }).then(function(){
+                                    let url =  'https://swqt-5cab2-default-rtdb.firebaseio.com//readings.json';
+                                fetch(url, {
+                                method: 'POST',
+                                body: JSON.stringify({
+                                dissolved02,
+                                nitrate,
+                                ph,
+                                freechlorine,
+                                user_id,
+                                longitude,
+                                latitude,
+                                location:localStorage.getItem("location"),
+                                date: new Date().toLocaleString()
+                        
+                                
+                            }),
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            }) .then((res) => {
+                                if (res.ok) {
+                                    return  res.json().then((data) => {
+                                        // console.log(data)
+                                        // SAVE RESPONSE TO LOCAL STORAGE
+                                        localStorage.setItem("ph", ph)
+                                        localStorage.setItem("dissolved02", dissolved02)
+                                        localStorage.setItem("nitrate", nitrate)
+                                        localStorage.setItem("freechlorine", freechlorine)
+                                        localStorage.setItem("longitude", longitude)
+                                        localStorage.setItem("latitude", latitude)
+
+                                        location.replace("/analyzeresult.html");
+                                    })
+                                }
+                                else{
+                                    return res.json().then((data) => {     
+                                        console.log(data)                 
+                                        alert(data.error.message);
+                                     });
+                                }
+                            })
+                                  })
+       
+ 
+}
+
+// HANDLE ERRORS FROM GEOLOCATION
+function showError(error) {
+  $(".spinner-border").css("display","none")
+  switch(error.code) {
+    case error.PERMISSION_DENIED:
+      alert("User denied the request for Geolocation.")
+      break;
+    case error.POSITION_UNAVAILABLE:
+      alert("Location information is unavailable. Turn on your location in mobile/pc settings")
+      break;
+    case error.TIMEOUT:
+      alert("The request to get user location timed out.")
+      break;
+    case error.UNKNOWN_ERROR:
+      alert( "An unknown error occurred.")
+      break;
+  }
+}
+</script>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.6/dist/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.2.1/dist/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+
+    </html>

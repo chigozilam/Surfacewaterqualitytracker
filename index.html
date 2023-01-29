@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homepage | Surface Water Quality Tracker</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.2.1/dist/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;402&display=swap" rel="stylesheet" />
+        <script src="https://kit.fontawesome.com/7dc12ecddc.js" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="slider.css">
+</head>
+<body onload="loadUser()">
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="/index.html"><img class="logo" src="/assets/logo.png"></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+          
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav mr-auto">
+                <!-- <li class="nav-item active">
+                  <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Link</a>
+                </li> -->
+          
+              </ul>
+              
+              <div class="form-inline my-2 my-lg-0">
+                <!-- <a class="nav-link" href="/inputreadings.html">Input Readings</a> -->
+                <!-- <a class="nav-link" href="/analyzeresult.html">Analyze Result</a> -->
+                <a class="nav-link" href="/unauthenticatedmap.html">Check Readings</a>
+                <a class="nav-link" href="/umaps.html">Map</a>
+
+                <!-- <a class="nav-link" href="/index.html">Logout</a> -->
+
+                <!-- <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> -->
+              </div>
+            </div>
+          </nav>
+
+          <div class="">
+            <div class="slider">
+              <div class="slides">
+                <div class="slide">
+                  <img src="/assets/1.png">
+                  <!-- <div class="slide-content">Slide number 1</div> -->
+                </div>
+                <div class="slide">
+                  <img src="/assets/4.jpg">
+                  <!-- <div class="slide-content">Slide number 2</div> -->
+                </div>
+                <div class="slide">
+                  <img src="/assets/3.jpg">
+                  <!-- <div class="slide-content">Slide number 3</div> -->
+                </div>
+           
+              </div>
+              <div class="slider-control">
+                <div class="btn next leftarrow"><i class="fas fa-arrow-right"></i></div>
+                <div class="btn prev rightarrow"><i class="fas fa-arrow-left"></i></div>
+              </div>
+            </div>
+            <p class="welcome">Welcome to doing your part in creating a sustainable world</p>
+            <p class="registersubmitp">
+              <button type="submit" class="btn btn-primary registersubmit" onclick="showInstruction()">
+                  <div class="spinner-border spinner-border-sm" role="status">
+                      <!-- <span class="sr-only">Loading...</span> -->
+                    </div>
+                  View Instructions</button>
+             <a href="/unauthenticatedmap.html"> <button type="submit" class="btn btn-primary registersubmit">Check Readings</button></a>
+
+          </p>
+
+          <div id="instructions">
+            <p class="steps">STEPS</p>
+          
+            <p class="step_s">1. Sign In or Create Account <a href="signin.html">HERE</a></p>
+
+            <p class="step_s">2. Use the test kit to get readings</p>
+            <p class="step_s">3. Input the readings</p>
+            <p class="step_s">4. The readings will be analysed</p>
+            <p class="step_s">5. Your Geo-location will be taken</p>
+            <p class="step_s">6. The information will be added to the database for other users</p>
+          </div>
+    
+
+     
+        </div>
+    </div>
+
+
+    <!-- SLIDER FUNCTIONALITY -->
+    <script>
+   const slides = document.querySelectorAll('.slide')
+const next = document.querySelector('.next')
+const prev = document.querySelector('.prev')
+let active = 0
+slides[active].classList.add('active')
+
+// next slide function
+const nextSlide = () =>{
+  active++
+  slides.forEach(slide => {
+    slide.classList.remove('active')
+  })
+  if(active === slides.length){
+    active = 0
+  }
+  
+  slides[active].classList.add('active')
+  
+}
+
+// previous slide function
+const prevSlide = () =>{
+  active--
+  slides.forEach(slide => {
+    slide.classList.remove('active')
+  })
+  if(active === 0){
+    active = slides.length - 1
+  }
+  
+  slides[active].classList.add('active')
+  
+}
+
+next.addEventListener('click', nextSlide)
+prev.addEventListener('click', prevSlide)
+
+        
+    </script>
+    <!-- SLIDER FUNCTIONALITY -->
+
+    <!-- SHOW INSTRUCTION ON BUTTON CLICK -->
+    <script>
+      const showInstruction = () => {
+   
+          $("#instructions").css("display","inherit")
+          const element = document.getElementById("instructions");
+          element.scrollIntoView({behavior: "smooth"});
+
+      }
+    </script>
+    <!-- SHOW INSTRUCTION ON BUTTON CLICK -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.6/dist/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.2.1/dist/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+    </html>

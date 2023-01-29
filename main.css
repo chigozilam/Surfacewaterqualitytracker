@@ -1,0 +1,172 @@
+body{
+    font-family: Avenir Next,Avenir,Segoe UI,Roboto,Helvetica Neue,Helvetica,Arial,sans-serif;
+    padding: 0;
+    margin: 0;
+    /* background-color: #ADD8E6 ; */
+}
+
+.logo{
+    height:50px
+}
+
+.css-serial {
+    counter-reset: serial-number; 
+   }
+   .css-serial td:first-child:before {
+    counter-increment: serial-number; 
+    content: counter(serial-number); 
+   }
+
+/* REGISTRATION PAGE */
+
+.registertitle{
+    text-align:center;
+    font-weight:bold;
+    padding-top:50px;
+    font-size:20px
+}
+
+.form-group{
+    margin-top:20px
+}
+
+label{
+    margin-bottom:5px
+}
+
+table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+.registersubmit{
+    margin-top:20px
+}
+
+.registersubmitp{
+    text-align:center;
+}
+
+.haveanaccount{
+    text-align:center
+}
+
+.loginhere{
+    text-decoration: none;
+    padding-bottom:50px;
+    color:#000;
+    font-weight:bolder
+}
+
+.privacypolicy{
+    color:#000;
+    font-weight:bolder
+}
+
+.form-check{
+    margin-top:20px
+}
+
+/* REGISTRATION PAGE */
+
+
+/* SIGNIN PAGE */
+
+.signinsubmitp{
+    text-align:center;
+    padding-top:50px
+}
+
+/* SIGNIN PAGE */
+
+
+
+/* DASHBOARD */
+.nav-link{
+    text-decoration:none;
+    color:#000;
+    
+}
+/* DASHBOARD */
+
+
+/* ANALYZE RESULT */
+.chartbox{
+    margin-top:70px
+}
+
+.summarybox{
+    margin-top:70px
+}
+
+.charttext{
+    font-weight:bolder
+}
+
+.summarytext{
+    font-weight:bolder
+}
+
+.mapbox{
+    margin-top:70px
+}
+.maptext{
+    font-weight:bolder
+}
+/* ANALYZE RESULT */
+
+.inputreadingform{
+    margin-top:80px
+}
+
+.mapsearch{
+  margin-top:50px!important
+}
+
+.welcome{
+    text-align:center;
+    font-size:25px;
+    padding-top:30px
+}
+
+.steps{
+    text-align:center;
+    font-size:18px;
+    padding-top:50px
+}
+
+.step_s{
+    text-align:center;
+    font-size:16px;
+
+}
+
+.spinner-border {
+    display:none;
+}
+
+#map { 
+    height: 600px; 
+}
+
+.registerform{
+    padding: 0px 40px 0px 40px
+}
+
+.loginform{
+    padding: 0px 40px 0px 40px
+}
+
+
+@media (min-width:768px) and (max-width:1024px) {
+    .form-inline{
+        display:block
+    }
+}
+
+@media (min-width:375px) and (max-width:767px) {
+    .form-inline{
+        display:block
+    }
+}
